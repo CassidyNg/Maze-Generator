@@ -14,13 +14,17 @@ public class MazeGenerator {
 
         //set the title and description
         //YOUR CODE HERE:
+        bridges.setTitle("Maze Generator");
+        bridges.setDescription("Randomly generating a maze using cells");
 
         //create a new MazeGenerator with a width and height of your choice
         //then call the toImage method to create a ColorGrid object
         //YOUR CODE HERE:
+        MazeGenerator maze = new MazeGenerator(15, 20);
+        ColorGrid colorGrid = maze.toImage();
 
         //replace 'object name' with the name of your ColorGrid object
-        bridges.setDataStructure(OBJECT_NAME);
+        bridges.setDataStructure(colorGrid);
         bridges.visualize();
     }
 
@@ -43,7 +47,9 @@ public class MazeGenerator {
         grid[height/2][width/2] = new Cell();
 
         //add cells until the maze is complete
-        while(isIncomplete()) addCell();
+        while(isIncomplete()){
+            addCell();
+        }
     }
 
     //create a method called 'isIncomplete' which takes no parameters and returns a boolean
@@ -122,13 +128,17 @@ public class MazeGenerator {
 
         //set 'lastRow' and 'lastCol' to the coordinates of the new cell
         //YOUR CODE HERE:
-        lastRow = new
+        lastRow = newRow;
+        lastCol = newCol;
     }
 
     //create a method called 'randInt' which takes an integer and returns an integer
     //the returned value should be a random natural number smaller than the input
     //for example, if the input is 3, the method should randomly return 0, 1, or 2
     //YOUR CODE HERE:
+    public int randInt(int num){
+        return (int)(Math.random() * num);
+    }
 
     //add a new cell to the maze
     private void addCell() {
@@ -140,17 +150,28 @@ public class MazeGenerator {
         //use the randInt method to set 'row' and 'col' to random coordinates,
         //and reassign 'cell' accordingly
         //YOUR CODE HERE:
+        while(!(cell.isUnavailabe())){
+            row = randInt(height);
+            col = randInt(width);
+            cell = grid[row][col];
+        }
 
         //get an ArrayList of the available directions
         //if there are no available directions, set 'cell' to unavailable and break out of the method
         //YOUR CODE HERE:
+        ArrayList<Direction> available = availableDirections(row, col);
+        if(available.size() == 0){
+            cell.setUnavailable();
+        }
 
         //use the randInt method to get a random direction out of the list
         //YOUR CODE HERE:
+        Direction randDirection = available.get(randInt(available.size()));
 
         //call the 'branch' method with your randomly generated row, column, and direction
         //this will create a new cell by branching the maze
         //YOUR CODE HERE:
+        branch(row, col, randDirection);
     }
 
     //use the maze to create a ColorGrid image
@@ -160,6 +181,8 @@ public class MazeGenerator {
 
         //create two new Color objects called 'wallColor' and 'pathColor'
         //YOUR CODE HERE:
+        Color wallColor = new Color(0, 0, 0);
+        Color pathColor = new Color(153, 204, 255);
 
         for(int r = 0; r < height; r++) {
             for(int c = 0; c < width; c++) {
@@ -168,6 +191,20 @@ public class MazeGenerator {
                 //set topColor to 'wallColor' if the cell is blocked on the top
                 //otherwise, set it to 'pathColor'
                 //YOUR CODE HERE:
+                Color leftColor;
+                Color topColor;
+
+                if(grid[r][c].blocked(Direction.LEFT)){
+                    leftColor = wallColor;
+                }else{
+                    leftColor = pathColor;
+                }
+
+                if(grid[r][c].blocked(Direction.TOP)){
+                    topColor = wallColor;
+                }else{
+                    topColor = pathColor;
+                }
 
                 //top and left border of cell
                 image.set(r * 5, c * 5, wallColor);
@@ -181,6 +218,11 @@ public class MazeGenerator {
                 //set the inner part of the cell to 'pathColor' using a nested loop
                 //color every pixel from [r * 5 + 1, c * 5 + 1] to [r * 5 + 4, c * 5 + 4]
                 //YOUR CODE HERE:
+                for(int row = 1; row <= 4; row++){
+                    for(int col = 1; col <= 4; col++){
+                        image.set(r * 5 + row, c * 5 + col, pathColor);
+                    }
+                }
             }
         }
 
