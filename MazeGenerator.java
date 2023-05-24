@@ -15,7 +15,7 @@ public class MazeGenerator {
         //set the title and description
         //YOUR CODE HERE:
         bridges.setTitle("Maze Generator");
-        bridges.setDescription("Randomly generating a maze using cells");
+        bridges.setDescription("Creating a randomly generated maze");
 
         //create a new MazeGenerator with a width and height of your choice
         //then call the toImage method to create a ColorGrid object
@@ -150,7 +150,7 @@ public class MazeGenerator {
         //use the randInt method to set 'row' and 'col' to random coordinates,
         //and reassign 'cell' accordingly
         //YOUR CODE HERE:
-        while(!(cell.isUnavailabe())){
+        while(cell == null || !(cell.isUnavailabe())){
             row = randInt(height);
             col = randInt(width);
             cell = grid[row][col];
@@ -162,6 +162,7 @@ public class MazeGenerator {
         ArrayList<Direction> available = availableDirections(row, col);
         if(available.size() == 0){
             cell.setUnavailable();
+            return;
         }
 
         //use the randInt method to get a random direction out of the list
