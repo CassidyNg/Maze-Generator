@@ -124,7 +124,7 @@ public class MazeGenerator {
         //YOUR CODE HERE:
         grid[newRow][newCol] = new Cell();
         grid[row][col].connect(d);
-        grid[newRow][newCol].connect(d.invert(d));
+        grid[newRow][newCol].connect(Direction.invert(d));
 
         //set 'lastRow' and 'lastCol' to the coordinates of the new cell
         //YOUR CODE HERE:
