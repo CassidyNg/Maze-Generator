@@ -107,7 +107,7 @@ public class MazeGenerator {
             newRow = row - 1;
             newCol = col;
         }else if(d == Direction.BOTTOM){
-            newRow = row++;
+            newRow = row + 1;
             newCol = col;
         }else if(d == Direction.LEFT){
             newRow = row;
