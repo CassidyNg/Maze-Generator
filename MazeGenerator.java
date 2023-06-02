@@ -182,8 +182,8 @@ public class MazeGenerator {
 
         //create two new Color objects called 'wallColor' and 'pathColor'
         //YOUR CODE HERE:
-        Color wallColor = new Color(0, 0, 0);
-        Color pathColor = new Color(153, 204, 255);
+        Color wallColor = new Color(0, 51, 102);
+        Color pathColor = new Color(51, 153, 255);
 
         for(int r = 0; r < height; r++) {
             for(int c = 0; c < width; c++) {
