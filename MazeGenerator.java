@@ -123,8 +123,8 @@ public class MazeGenerator {
         //this joins to old cell to the new one
         //YOUR CODE HERE:
         grid[newRow][newCol] = new Cell();
-        grid[row][col].connect(d);
         grid[newRow][newCol].connect(Direction.invert(d));
+        grid[row][col].connect(d);
 
         //set 'lastRow' and 'lastCol' to the coordinates of the new cell
         //YOUR CODE HERE:
@@ -150,7 +150,7 @@ public class MazeGenerator {
         //use the randInt method to set 'row' and 'col' to random coordinates,
         //and reassign 'cell' accordingly
         //YOUR CODE HERE:
-        while(cell == null || !(cell.isUnavailabe())){
+        while(cell == null || cell.isUnavailabe()){
             row = randInt(height);
             col = randInt(width);
             cell = grid[row][col];
